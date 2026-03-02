@@ -16,8 +16,10 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            RoboticsKitSeeder::class, // Primero los kits porque los cursos los necesitan
-            UserSeeder::class,
+            GroupSeeder::class,      
+            RoboticsKitSeeder::class, 
+            UserSeeder::class,       
+            CourseSeeder::class,
     ]);
 
     // Crear 10 cursos de prueba usando la Factory
