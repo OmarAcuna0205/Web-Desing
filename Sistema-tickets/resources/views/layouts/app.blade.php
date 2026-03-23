@@ -16,18 +16,59 @@
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-dark px-4 py-3 mb-4">
-        <a class="navbar-brand fw-bold fs-5" href="{{ route('tickets.index') }}">
-            Sistema de Tickets
-        </a>
-        <a href="{{ route('tickets.create') }}" class="btn btn-success btn-sm">
-            + Nuevo Ticket
-        </a>
+    <nav class="navbar navbar-expand-lg navbar-dark px-4 py-3 mb-4">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold fs-5" href="{{ route('dashboard') }}">
+                Sistema de Tickets
+            </a>
+            
+            <div class="navbar-nav ms-auto flex-row align-items-center gap-3">
+                @auth
+                    {{-- MENÚ ADMIN --}}
+                    @if(auth()->user()->rol === 'admin')
+                        <a class="nav-link" href="{{ route('admin.dashboard') }}">Dashboard</a>
+                        <a class="nav-link" href="{{ route('admin.tickets.index') }}">Tickets</a>
+                        <a class="nav-link" href="{{ route('admin.usuarios.index') }}">Usuarios</a>
+                    @endif
+                    
+                    {{-- MENÚ GERENTE --}}
+                    @if(auth()->user()->rol === 'gerente')
+                        <a class="nav-link" href="{{ route('gerente.dashboard') }}">Dashboard</a>
+                        <a class="nav-link" href="{{ route('gerente.reportes') }}">Reportes</a>
+                        <a class="nav-link" href="{{ route('gerente.tickets.index') }}">Tickets</a>
+                    @endif
+                    
+                    {{-- MENÚ USUARIO REGULAR --}}
+                    @if(auth()->user()->rol === 'usuario')
+                        <a class="nav-link" href="{{ route('usuario.dashboard') }}">Mi Panel</a>
+                        <a class="nav-link" href="{{ route('usuario.tickets.index') }}">Mis Tickets</a>
+                        <a class="nav-link" href="{{ route('usuario.tickets.create') }}">Nuevo Ticket</a>
+                    @endif
+                    
+                    {{-- PERFIL Y LOGOUT --}}
+                    <span class="nav-link text-light border-start ps-3 ms-2">
+                        {{ auth()->user()->name }} 
+                        <span class="badge bg-secondary ms-1">{{ strtoupper(auth()->user()->rol) }}</span>
+                    </span>
+                    <form method="POST" action="{{ route('logout') }}" class="d-inline m-0">
+                        @csrf
+                        <button type="submit" class="btn btn-sm btn-outline-light">Salir</button>
+                    </form>
+                @endauth
+            </div>
+        </div>
     </nav>
+
     <div class="container">
         @if(session('success'))
             <div class="alert alert-success alert-dismissible fade show">
                 {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        @endif
+        @if(session('error'))
+            <div class="alert alert-danger alert-dismissible fade show">
+                {{ session('error') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div>
         @endif
