@@ -55,4 +55,22 @@ class TicketWebController extends Controller
         return redirect()->route('tickets.index')
             ->with('success', 'Ticket eliminado.');
     }
+
+    // PATCH /tickets/{ticket}/close (MÉTODO DEL EXAMEN PARCIAL 2)
+    public function close(Ticket $ticket)
+    {
+        // PUNTOS EXTRAS: Validación del estado actual del ticket
+        if ($ticket->status !== 'pendiente' && $ticket->status !== 'en_curso') {
+            return back()->with('error', 'Solo se puede cerrar un ticket que esté pendiente o en curso.');
+        }
+
+        // REQUISITOS OBLIGATORIOS: Cambiar status y asignar la fecha actual
+        $ticket->update([
+            'status' => 'finalizada',
+            'fecha_resolucion' => now()
+        ]);
+
+        // Redirigir con mensaje de éxito
+        return back()->with('success', 'Ticket cerrado exitosamente.');
+    }
 }

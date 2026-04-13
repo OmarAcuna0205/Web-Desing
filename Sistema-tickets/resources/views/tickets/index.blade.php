@@ -10,7 +10,7 @@
 
 @if($tickets->isEmpty())
     <div class="alert alert-info text-center">
-        No hay tickets. <a href="{{ route('tickets.create') }}">Crea el primero.</a>
+        No hay tickets. <a href="{{ route('admin.tickets.create') }}">Crea el primero.</a>
     </div>
 @else
     <table class="table table-hover bg-white shadow-sm rounded">
@@ -51,13 +51,24 @@
                     </td>
                     <td>{{ $ticket->tecnico_asignado ?? '-' }}</td>
                     <td>
-                        <a href="{{ route('tickets.show', $ticket) }}" class="btn btn-sm btn-outline-primary">Ver</a>
-                        <a href="{{ route('tickets.edit', $ticket) }}" class="btn btn-sm btn-outline-warning">Editar</a>
-                        <form action="{{ route('tickets.destroy', $ticket) }}" method="POST" class="d-inline" onsubmit="return confirm('¿Eliminar?')">
+                        <a href="{{ route('admin.tickets.show', $ticket) }}" class="btn btn-sm btn-outline-primary">Ver</a>
+                        <a href="{{ route('admin.tickets.edit', $ticket) }}" class="btn btn-sm btn-outline-warning">Editar</a>
+                        <form action="{{ route('admin.tickets.destroy', $ticket) }}" method="POST" class="d-inline" onsubmit="return confirm('¿Eliminar?')">
                             @csrf 
                             @method('DELETE')
                             <button class="btn btn-sm btn-outline-danger">Eliminar</button>
                         </form>
+
+                        {{-- EXAMEN PARCIAL 2: Botón Cerrar (Solo Admin/Gerente) --}}
+                        @if(auth()->user()->rol == 'admin' || auth()->user()->rol == 'gerente')
+                            @if($ticket->status == 'pendiente' || $ticket->status == 'en_curso')
+                                <form action="{{ route('tickets.close', $ticket) }}" method="POST" class="d-inline" onsubmit="return confirm('¿Seguro que deseas cerrar este ticket?');">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button type="submit" class="btn btn-sm btn-success">Cerrar</button>
+                                </form>
+                            @endif
+                        @endif
                     </td>
                 </tr>
             @endforeach

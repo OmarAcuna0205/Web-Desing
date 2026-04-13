@@ -45,6 +45,11 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/tickets', [GerenteController::class, 'verTodos'])->name('tickets.index');
     });
 
+    // RUTA EXAMEN PARCIAL 2: CERRAR TICKET (Roles: admin, gerente)
+    Route::patch('/tickets/{ticket}/close', [TicketWebController::class, 'close'])
+        ->name('tickets.close')
+        ->middleware('rol:admin,gerente');
+
     // RUTAS USUARIO (roles: admin, gerente, usuario)
     Route::middleware(['rol:admin,gerente,usuario'])->prefix('mis-tickets')->name('usuario.')->group(function () {
         Route::get('/dashboard', [UsuarioController::class, 'dashboard'])->name('dashboard');
