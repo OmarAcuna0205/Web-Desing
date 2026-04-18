@@ -9,7 +9,7 @@
                 <h5 class="mb-0">Crear Nuevo Ticket</h5>
             </div>
             <div class="card-body">
-                <form action="{{ route('usuario.tickets.store') }}" method="POST">
+                <form action="{{ route('usuario.tickets.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row g-3">
                         <div class="col-md-12">
@@ -43,6 +43,13 @@
                             <textarea name="descripcion_detallada" class="form-control" rows="3" placeholder="Explica a detalle qué está fallando..."></textarea>
                         </div>
                     </div>
+
+                    <div class="col-12 mt-3">
+                        <label class="form-label fw-bold">Adjuntar imágenes y documentos</label>
+                        <input type="file" name="attachments[]" multiple class="form-control">
+                        <small class="text-muted">Máximo 10 MB por archivo. Puedes seleccionar varios.</small>
+                    </div>
+                    
                     <div class="mt-4 d-flex gap-2">
                         <button type="submit" class="btn btn-primary">Guardar Ticket</button>
                         <a href="{{ route('usuario.dashboard') }}" class="btn btn-secondary">Cancelar</a>
