@@ -1,0 +1,227 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	:root {
+		--bg: #f5f3ee;
+		--bg-2: #eef2f7;
+		--surface: #ffffff;
+		--text: #101828;
+		--muted: #667085;
+		--primary: #1f3a5f;
+		--primary-600: #172c49;
+		--accent: #c0893b;
+		--border: rgba(15, 23, 42, 0.08);
+		--ring: rgba(31, 58, 95, 0.18);
+		--shadow: 0 18px 50px rgba(15, 23, 42, 0.12);
+		--shadow-soft: 0 10px 24px rgba(15, 23, 42, 0.08);
+	}
+
+	body {
+		color: var(--text);
+		background:
+			radial-gradient(1200px 600px at 5% -10%, #fff7e9 0%, rgba(255, 247, 233, 0) 60%),
+			radial-gradient(900px 500px at 100% 0%, #e9f1ff 0%, rgba(233, 241, 255, 0) 65%),
+			linear-gradient(180deg, var(--bg), var(--bg-2));
+		font-family: "Sora", "Figtree", system-ui, -apple-system, sans-serif;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4 {
+		font-family: "Playfair Display", "Sora", serif;
+		letter-spacing: -0.01em;
+	}
+
+	::selection {
+		background: rgba(31, 58, 95, 0.15);
+	}
+}
+
+@keyframes fade-up {
+	from {
+		opacity: 0;
+		transform: translateY(8px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@layer components {
+	.app-shell {
+		@apply min-h-screen;
+	}
+
+	.app-container {
+		@apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
+	}
+
+	.app-main {
+		@apply py-0;
+	}
+
+	.page-header {
+		@apply border-b border-slate-200/60;
+		background: rgba(255, 255, 255, 0.7);
+		backdrop-filter: blur(10px);
+	}
+
+	.card {
+		background: var(--surface);
+		border: 1px solid var(--border);
+		box-shadow: var(--shadow-soft);
+		border-radius: 18px;
+	}
+
+	.card-soft {
+		background: rgba(255, 255, 255, 0.85);
+		border: 1px solid var(--border);
+		box-shadow: var(--shadow-soft);
+		border-radius: 18px;
+	}
+
+	.btn {
+		@apply inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold transition;
+	}
+
+	.btn-primary {
+		background: var(--primary);
+		color: #ffffff;
+		box-shadow: 0 10px 20px rgba(31, 58, 95, 0.25);
+	}
+
+	.btn-primary:hover {
+		background: var(--primary-600);
+		transform: translateY(-1px);
+	}
+
+	.btn-secondary {
+		background: #ffffff;
+		color: var(--primary);
+		border: 1px solid var(--border);
+	}
+
+	.btn-secondary:hover {
+		background: #f8fafc;
+		transform: translateY(-1px);
+	}
+
+	.btn-ghost {
+		color: var(--primary);
+	}
+
+	.btn-ghost:hover {
+		background: rgba(15, 23, 42, 0.04);
+	}
+
+	.btn-danger {
+		background: #b42318;
+		color: #ffffff;
+	}
+
+	.btn-danger:hover {
+		background: #912018;
+	}
+
+	.form-label {
+		@apply block text-sm font-semibold text-slate-700;
+	}
+
+	.form-input {
+		@apply w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm shadow-sm transition;
+		box-shadow: 0 0 0 0 transparent;
+	}
+
+	.form-input:focus {
+		border-color: rgba(31, 58, 95, 0.4);
+		box-shadow: 0 0 0 4px var(--ring);
+		outline: none;
+	}
+
+	.form-select {
+		@apply w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm shadow-sm;
+	}
+
+	.form-select:focus {
+		border-color: rgba(31, 58, 95, 0.4);
+		box-shadow: 0 0 0 4px var(--ring);
+		outline: none;
+	}
+
+	.table {
+		width: 100%;
+		border-collapse: collapse;
+	}
+
+	.table th {
+		text-transform: uppercase;
+		font-size: 0.7rem;
+		letter-spacing: 0.12em;
+		color: var(--muted);
+		padding: 0.75rem 0;
+		border-bottom: 1px solid var(--border);
+		text-align: left;
+	}
+
+	.table td {
+		padding: 0.9rem 0;
+		border-bottom: 1px solid var(--border);
+		text-align: left;
+	}
+
+	.table tr:last-child td {
+		border-bottom: none;
+	}
+
+	.alert {
+		border-radius: 12px;
+		border: 1px solid transparent;
+		padding: 0.75rem 1rem;
+		font-size: 0.95rem;
+	}
+
+	.alert-success {
+		background: #ecfdf3;
+		border-color: #b7ebc6;
+		color: #0f5132;
+	}
+
+	.badge {
+		@apply inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold;
+		background: rgba(195, 137, 59, 0.14);
+		color: #8f5a1a;
+	}
+
+	.nav-shell {
+		background: rgba(255, 255, 255, 0.8);
+		border-bottom: 1px solid var(--border);
+		backdrop-filter: blur(10px);
+	}
+
+	.nav-brand {
+		@apply flex items-center gap-3;
+	}
+
+	.nav-title {
+		font-family: "Playfair Display", "Sora", serif;
+		letter-spacing: -0.02em;
+		font-size: 1.1rem;
+		color: var(--text);
+	}
+
+	.section-title {
+		@apply text-2xl font-semibold;
+	}
+
+	.fade-up {
+		animation: fade-up 0.6s ease both;
+	}
+
+	.fade-up-delay {
+		animation-delay: 120ms;
+	}
+}
