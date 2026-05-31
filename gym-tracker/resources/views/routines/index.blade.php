@@ -21,6 +21,26 @@
                     </a>
                 </div>
 
+                <div style="padding: 15px; background: #f9fafb; border-radius: 8px; border: 1px solid #e5e7eb;">
+                    <form action="{{ route('routines.report') }}" method="GET" target="_blank" style="display: flex; gap: 10px; align-items: center; justify-content: space-between;">
+                        <div style="display: flex; gap: 10px; align-items: center;">
+                            <label for="dia" class="font-semibold text-slate-700">Filtrar Reporte por Día:</label>
+                            <select name="dia" id="dia" style="padding: 6px; border-radius: 5px; border: 1px solid #ccc;">
+                                <option value="">Todos</option>
+                                <option value="Lunes">Lunes</option>
+                                <option value="Martes">Martes</option>
+                                <option value="Miércoles">Miércoles</option>
+                                <option value="Jueves">Jueves</option>
+                                <option value="Viernes">Viernes</option>
+                                <option value="Sábado">Sábado</option>
+                                <option value="Domingo">Domingo</option>
+                            </select>
+                        </div>
+                        <button type="submit" style="padding: 8px 15px; background-color: #2563eb; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; transition: background 0.3s;" onmouseover="this.style.backgroundColor='#1d4ed8'" onmouseout="this.style.backgroundColor='#2563eb'">
+                            📄 Generar Reporte PDF
+                        </button>
+                    </form>
+                </div>
                 <div class="card p-6 fade-up">
                     <div class="overflow-x-auto">
                         <table class="table">

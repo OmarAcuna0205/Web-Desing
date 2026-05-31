@@ -21,6 +21,24 @@ class RoutineController extends Controller
         return view('routines.index', compact('routines'));
     }
 
+    public function report(Request $request)
+    {
+        if(Auth::user()->role === 'admin') {
+            $query = Routine::with(['exercises', 'user']);
+        } else {
+            $query = Routine::where('user_id', Auth::id())->with('exercises');
+        }
+
+        if ($request->has('dia') && $request->dia != '') {
+            $query->where('dia', $request->dia);
+        }
+
+        $routines = $query->get();
+
+        return view('routines.report', compact('routines'));
+    }
+    // ----------------------------------------------
+
     // VER EL DETALLE DE LA RUTINA Y SUS EJERCICIOS
     public function show(Routine $routine)
     {
